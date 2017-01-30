@@ -96,7 +96,7 @@ int main(int argc, char *argv[]) {
 				write(STDOUT_FILENO, inj, inj_len);
 			}
 			if(inj_pos < data_len) {
-				write(STDOUT_FILENO, buff, data_len - inj_pos);
+				write(STDOUT_FILENO, buff + inj_pos, data_len - inj_pos);
 			}
 		}
 	}
