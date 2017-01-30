@@ -2,8 +2,8 @@
 #define _MOTION_SENSOR_H_
 
 #define YAW 0
-#define PITCH 1
-#define ROLL 2
+#define ROLL 1
+#define PITCH 2
 #define DIM 3
 #ifdef __cplusplus
 extern "C"{
