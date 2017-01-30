@@ -51,10 +51,10 @@ void *threadFunc(void *data) {
 
 
 int main(int argc, char *argv[]) {
-
+	bool is_init = false;
 	// init motion sensor
-	pthread_t th;
-	pthread_create(&th, NULL, threadFunc, NULL);
+	//pthread_t th;
+	//pthread_create(&th, NULL, threadFunc, NULL);
 
 	int marker = 0;
 	int buff_size = 4096;
@@ -65,12 +65,19 @@ int main(int argc, char *argv[]) {
 			if (marker) {
 				marker = 0;
 				if (buff[i] == 0xd8) { //SOI
-					ms_update();
-					char str[256];
-					int len = sprintf(str, "%f, %f, %f\n", ypr[YAW], ypr[PITCH], ypr[ROLL]);
-					write(STDERR_FILENO, str, len);
+					if(is_init) {
+						ms_update();
+
+						char str[256];
+						int len = sprintf(str, "%f, %f, %f\n", ypr[YAW], ypr[PITCH], ypr[ROLL]);
+						write(STDERR_FILENO, str, len);
+					}
 				}
 				if (buff[i] == 0x0d) { //EOI
+					if(!is_init) {
+						is_init = true;
+						ms_open();
+					}
 				}
 			} else if (buff[i] == 0xff) {
 				marker = 1;
