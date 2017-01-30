@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 
 	int marker = 0;
 	int buff_size = 4096;
-	unsigned char buff[buff_size];
+	char buff[buff_size];
 	while (1) {
 		int data_len = read(STDIN_FILENO, buff, buff_size);
 		for (int i = 0; i < data_len; i++) {
@@ -53,8 +53,8 @@ int main(int argc, char *argv[]) {
 				marker = 0;
 				if (buff[i] == 0xd8) { //SOI
 					ms_update();
-					unsigned char str[256];
-					int len = sprintf(str, "%f, %f, %f\n", ypr[YAW], ypr[PITCH], ypr[ROLL])
+					char str[256];
+					int len = sprintf(str, "%f, %f, %f\n", ypr[YAW], ypr[PITCH], ypr[ROLL]);
 					write(STDERR_FILENO, str, len);
 				}
 				if (buff[i] == 0x0d) { //EOI
