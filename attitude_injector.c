@@ -33,20 +33,29 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <stdbool.h>
+#include <unistd.h>
 
 #include "attitude_injector.h"
+#include "MotionSensor.h"
 
 int main(int argc, char *argv[]) {
+
+	// init motion sensor
+	ms_open();
+
 	int marker = 0;
 	int buff_size = 4096;
 	unsigned char buff[buff_size];
 	while (1) {
-		int data_len = read(stdin, buff, buff_size);
+		int data_len = read(STDIN_FILENO, buff, buff_size);
 		for (int i = 0; i < data_len; i++) {
 			if (marker) {
 				marker = 0;
 				if (buff[i] == 0xd8) { //SOI
-					write(stderr, "soi\n", strlen("soi\n"));
+					ms_update();
+					unsigned char str[256];
+					int len = sprintf(str, "%f, %f, %f\n", ypr[YAW], ypr[PITCH], ypr[ROLL])
+					write(STDERR_FILENO, str, len);
 				}
 				if (buff[i] == 0x0d) { //EOI
 				}
@@ -54,7 +63,7 @@ int main(int argc, char *argv[]) {
 				marker = 1;
 			}
 		}
-		write(stdout, buff, data_len);
+		write(STDOUT_FILENO, buff, data_len);
 	}
 
 	return 0;
