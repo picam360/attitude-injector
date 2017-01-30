@@ -1,6 +1,6 @@
 CXX=g++
 AR=ar
-CXXFLAGS=-Wall -g -O2
+CXXFLAGS=-Wall -g -O2 -std=c++11 
 CXX_OPTS=-c -DMPU6050 -DMPU_DEBUGOFF -I../libs/
 
 SOURCES=sensor.c inv_mpu_lib/inv_mpu.c inv_mpu_lib/inv_mpu_dmp_motion_driver.c
