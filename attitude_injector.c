@@ -38,10 +38,23 @@
 #include "attitude_injector.h"
 #include "MotionSensor.h"
 
+
+void *threadFunc(void *data) {
+
+	ms_open();
+	do {
+		ms_update();
+
+		usleep(5000);
+	} while (1);
+}
+
+
 int main(int argc, char *argv[]) {
 
 	// init motion sensor
-	ms_open();
+	pthread_t th;
+	pthread_create(&th, NULL, threadFunc, NULL);
 
 	int marker = 0;
 	int buff_size = 4096;
