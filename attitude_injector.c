@@ -32,6 +32,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <stdbool.h>
 
 #include "attitude_injector.h"
 
@@ -40,22 +41,21 @@ int main(int argc, char *argv[]) {
 	int buff_size = 4096;
 	unsigned char buff[buff_size];
 	while (1) {
-		bool reset = false;
-		int data_len = read(std_in, buff, buff_size);
+		int data_len = read(stdin, buff, buff_size);
 		for (int i = 0; i < data_len; i++) {
 			if (marker) {
 				marker = 0;
 				if (buff[i] == 0xd8) { //SOI
-					write(std_err, "soi\n", strlen("soi\n"));
+					write(stderr, "soi\n", strlen("soi\n"));
 				}
-				if (buff[i] == 0xd9 && image_start >= 0) { //EOI
+				if (buff[i] == 0x0d) { //EOI
 				}
 			} else if (buff[i] == 0xff) {
 				marker = 1;
 			}
 		}
-		write(std_out, buff, data_len);
+		write(stdout, buff, data_len);
 	}
 
-	return NULL;
+	return 0;
 }
