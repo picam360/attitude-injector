@@ -61,12 +61,12 @@ int main(int argc, char *argv[]) {
 						inj[inj_len++] = 0xE1;
 						inj_len += sprintf(inj + inj_len, "http://ns.adobe.com/xap/1.0/");
 						inj[inj_len++] = '\0';
-						inj_len += sprintf(inj + inj_len, "<?xpacket begin=\"﻿");0xEFBBBF
+						inj_len += sprintf(inj + inj_len, "<?xpacket begin=\"﻿");
 						inj[inj_len++] = 0xEF;
 						inj[inj_len++] = 0xBB;
 						inj[inj_len++] = 0xBF;
 						inj_len += sprintf(inj + inj_len, "\" id=\"W5M0MpCehiHzreSzNTczkc9d\"?>");
-						inj_len += sprintf(inj + inj_len, "<x:xmpmeta xmlns:x=\"adobe:ns:meta/\" x:xmptk="attitude-injector rev1\">");
+						inj_len += sprintf(inj + inj_len, "<x:xmpmeta xmlns:x=\"adobe:ns:meta/\" x:xmptk=\"attitude-injector rev1\">");
 						inj_len += sprintf(inj + inj_len, "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">");
 						inj_len += sprintf(inj + inj_len, "<rdf:Description xmlns:GPano=\"http://ns.google.com/photos/1.0/panorama/\" rdf:about=\"\">");
 						inj_len += sprintf(inj + inj_len, "<GPano:PoseHeadingDegrees>%f</GPano:PoseHeadingDegrees>", ypr[YAW]);
