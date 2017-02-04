@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 		for (int i = 0; i < data_len; i++) {
 			if (marker) {
 				marker = 0;
-				if (buff[i] == 0xd8) { //SOI
+				if (buff[i] == 0xD8) { //SOI
 					if(is_init) {
 						inj_pos = i + 1;
 						ms_update();
@@ -59,13 +59,13 @@ int main(int argc, char *argv[]) {
 						inj[3] = (inj_len - 2) & 0xFF; // size LSB
 					}
 				}
-				if (buff[i] == 0xd9) { //EOI
+				if (buff[i] == 0xD9) { //EOI
 					if(!is_init) {
 						is_init = true;
 						ms_open();
 					}
 				}
-			} else if (buff[i] == 0xff) {
+			} else if (buff[i] == 0xFF) {
 				marker = 1;
 			}
 		}
