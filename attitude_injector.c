@@ -32,8 +32,11 @@ int main(int argc, char *argv[]) {
 						inj_pos = i + 1;
 						ms_update();
 
+						inj_len = 0;
 						inj[inj_len++] = 0xFF;
 						inj[inj_len++] = 0xE1;
+						inj[inj_len++] = 0; // size MSB
+						inj[inj_len++] = 0; // size LSB
 						inj_len += sprintf(inj + inj_len, "http://ns.adobe.com/xap/1.0/");
 						inj[inj_len++] = '\0';
 						inj_len += sprintf(inj + inj_len, "<?xpacket begin=\"﻿");
@@ -51,6 +54,9 @@ int main(int argc, char *argv[]) {
 						inj_len += sprintf(inj + inj_len, "</rdf:RDF>");
 						inj_len += sprintf(inj + inj_len, "</x:xmpmeta>");
 						inj_len += sprintf(inj + inj_len, "<?xpacket end=\"w\"?>");
+						inj[inj_len++] = '\0';
+						inj[2] = ((inj_len - 2) >> 8) & 0xFF; // size MSB
+						inj[3] = (inj_len - 2) & 0xFF; // size LSB
 					}
 				}
 				if (buff[i] == 0xd9) { //EOI
