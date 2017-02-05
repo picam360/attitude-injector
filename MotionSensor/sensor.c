@@ -25,6 +25,7 @@ int16_t g[3];              // [x, y, z]            gyro vector
 int32_t _q[4];
 int32_t t;
 int16_t c[3];
+uint32_t timestamp;
 
 VectorFloat gravity;    // [x, y, z]            gravity vector
 
@@ -120,7 +121,7 @@ int ms_open() {
 	printf("Checking... ");
 	do {
 		delay_ms(1000/rate);  //dmp will habve 4 (5-1) packets based on the fifo_rate
-		r=dmp_read_fifo(g,a,_q,&sensors,&fifoCount);
+		r=dmp_read_fifo(g,a,_q,&timestamp,&sensors,&fifoCount);
 	} while (r!=0 || fifoCount<5); //packtets!!!
 	printf("Done.\n");
 
@@ -134,7 +135,7 @@ int ms_update() {
 		return -1;
 	}
 
-	while (dmp_read_fifo(g,a,_q,&sensors,&fifoCount)!=0); //gyro and accel can be null because of being disabled in the efeatures
+	while (dmp_read_fifo(g,a,_q,&timestamp,&sensors,&fifoCount)!=0); //gyro and accel can be null because of being disabled in the efeatures
 	q = _q;
 	GetGravity(&gravity, &q);
 	GetYawPitchRoll(ypr, &q, &gravity);
@@ -144,10 +145,10 @@ int ms_update() {
 	quatanion[2] = (float)_q[2] / (1 << 30);
 	quatanion[3] = (float)_q[3] / (1 << 30);
 
-	mpu_get_temperature(&t);
+	mpu_get_temperature(&t,&timestamp);
 	temp=(float)t/65536L;
 
-	mpu_get_compass_reg(c);
+	mpu_get_compass_reg(c,&timestamp);
 
 	//scaling for degrees output
 	for (int i=0;i<DIM;i++){
