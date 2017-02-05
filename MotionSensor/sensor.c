@@ -22,10 +22,10 @@ uint8_t fifoBuffer[64]; // FIFO storage buffer
 
 int16_t a[3];              // [x, y, z]            accel vector
 int16_t g[3];              // [x, y, z]            gyro vector
-int32_t _q[4];
-int32_t t;
+long _q[4];
+long t;
 int16_t c[3];
-uint32_t timestamp;
+unsigned long timestamp;
 
 VectorFloat gravity;    // [x, y, z]            gravity vector
 
