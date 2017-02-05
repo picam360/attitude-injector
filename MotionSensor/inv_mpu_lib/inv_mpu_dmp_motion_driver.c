@@ -72,7 +72,29 @@
 #define log_e       MPL_LOGE
 
 #else
-#error  Gyro driver is missing the system layer implementations.
+#include <sys/time.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "I2Cdev/I2Cdev.h"
+
+/* The following functions must be defined for this platform:
+ * i2c_write(uint8_t slave_addr, uint8_t reg_addr, uint8_t length, uint8_t const *data)
+ * i2c_read(uint8_t slave_addr, uint8_t reg_addr, uint8_t length, uint8_t *data)
+ * delay_ms(uint32_t num_ms)
+ * min(int a, int b)
+ */
+#define i2c_write   writeBytes
+#define i2c_read(a,b,c,d)    (readBytes(a,b,c,d)!=-1?0:1)
+#define delay_ms(a)    usleep(a*1000)
+#define get_ms(t)
+static inline int reg_int_cb(struct int_param_s *int_param)
+{
+	return 0;
+}
+#define log_i	printf
+#define log_e	perror
+#define min(a,b) ((a)<(b)?(a):(b))
 #endif
 
 /* These defines are copied from dmpDefaultMPU6050.c in the general MPL
