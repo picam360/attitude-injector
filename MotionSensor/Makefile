@@ -4,8 +4,7 @@ AR=ar
 CFLAGS=-Wall -g -O2
 CXX_OPTS=-c -DMPU6500 -DMPU_DEBUGOFF -I../libs/
 
-SOURCES=sensor.cc inv_mpu_lib/inv_mpu.c inv_mpu_lib/inv_mpu_dmp_motion_driver.c
-OBJECTS=$(SOURCES:.c=.o)
+OBJECTS=sensor.o inv_mpu_lib/inv_mpu.o inv_mpu_lib/inv_mpu_dmp_motion_driver.o
 
 LIB=libMotionSensor.a
 

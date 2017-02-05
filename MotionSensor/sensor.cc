@@ -7,8 +7,16 @@
 
 #include "helper_3dmath.h"
 #include "../MotionSensor.h"
+
+#ifdef __cplusplus
+extern "C"{
+#endif
 #include "inv_mpu_lib/inv_mpu.h"
 #include "inv_mpu_lib/inv_mpu_dmp_motion_driver.h"
+#ifdef __cplusplus
+}
+#endif
+
 #include "sensor.h"
 
 #define wrap_180(x) (x < -180 ? x+360 : (x > 180 ? x - 360: x))
