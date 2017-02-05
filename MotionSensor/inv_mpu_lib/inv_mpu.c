@@ -131,7 +131,11 @@ static inline int reg_int_cb(struct int_param_s *int_param)
 #define i2c_write   writeBytes
 #define i2c_read(a,b,c,d)    (readBytes(a,b,c,d)!=-1?0:1)
 #define delay_ms(a)    usleep(a*1000)
-#define get_ms      (0)
+#define get_ms(t)
+static inline int reg_int_cb(struct int_param_s *int_param)
+{
+	return 0;
+}
 #define log_i	printf
 #define log_e	perror
 #define min(a,b) ((a)<(b)?(a):(b))
