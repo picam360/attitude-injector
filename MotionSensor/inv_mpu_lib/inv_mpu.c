@@ -116,6 +116,10 @@ static inline int reg_int_cb(struct int_param_s *int_param)
 #define labs        abs
 #define fabs(x)     (((x)>0)?(x):-(x))
 #else
+#include <sys/time.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "I2Cdev/I2Cdev.h"
 
 /* The following functions must be defined for this platform:
