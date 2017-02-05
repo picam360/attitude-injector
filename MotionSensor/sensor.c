@@ -138,10 +138,12 @@ int ms_update() {
 	q = _q;
 	GetGravity(&gravity, &q);
 	GetYawPitchRoll(ypr, &q, &gravity);
-	quatanion[0] = q->x;
-	quatanion[1] = q->y;
-	quatanion[2] = q->z;
-	quatanion[3] = q->w;
+
+    float m = sqrt(_q[0]*_q[0] + _q[1]*_q[1] + _q[2]*_q[2] + _q[3]*_q[3]);
+	quatanion[0] = (float)_q[0]/m;
+	quatanion[1] = (float)_q[1]/m;
+	quatanion[2] = (float)_q[2]/m;
+	quatanion[3] = (float)_q[3]/m;
 
 	mpu_get_temperature(&t);
 	temp=(float)t/65536L;
