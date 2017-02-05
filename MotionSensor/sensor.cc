@@ -143,7 +143,7 @@ int ms_update() {
 		return -1;
 	}
 
-	while (dmp_read_fifo(g,a,_q,&timestamp,&sensors,&fifoCount)!=0); //gyro and accel can be null because of being disabled in the efeatures
+	while (dmp_read_fifo(g,a,_q,&timestamp,&sensors,&fifoCount)!=0 || fifoCount > 5); //gyro and accel can be null because of being disabled in the efeatures
 	q = _q;
 	GetGravity(&gravity, &q);
 	GetYawPitchRoll(ypr, &q, &gravity);
