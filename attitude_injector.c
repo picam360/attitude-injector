@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
 						inj_len += sprintf(inj + inj_len, "<GPano:PoseHeadingDegrees>%f</GPano:PoseHeadingDegrees>", ypr[YAW]);
 						inj_len += sprintf(inj + inj_len, "<GPano:PosePitchDegrees>%f</GPano:PosePitchDegrees>", ypr[PITCH]);
 						inj_len += sprintf(inj + inj_len, "<GPano:PoseRollDegrees>%f</GPano:PoseRollDegrees>", ypr[ROLL]);
-						inj_len += sprintf(inj + inj_len, "<Picam360:Quaternion>%f,%f,%f,%f</Picam360:Quaternion>", _q[0], _q[1], _q[2], _q[3]);
+						inj_len += sprintf(inj + inj_len, "<Picam360:Quaternion>%f,%f,%f,%f</Picam360:Quaternion>", quatanion[0], quatanion[1], quatanion[2], quatanion[3]);
 						inj_len += sprintf(inj + inj_len, "</rdf:Description>");
 						inj_len += sprintf(inj + inj_len, "</rdf:RDF>");
 						inj_len += sprintf(inj + inj_len, "</x:xmpmeta>");

@@ -34,6 +34,7 @@ int dmpReady = 0;
 float lastval[3];
 int16_t sensors;
 
+float quatanion[4];
 float ypr[3];
 Quaternion q; 
 float temp;
@@ -137,6 +138,10 @@ int ms_update() {
 	q = _q;
 	GetGravity(&gravity, &q);
 	GetYawPitchRoll(ypr, &q, &gravity);
+	quatanion[0] = q->x;
+	quatanion[1] = q->y;
+	quatanion[2] = q->z;
+	quatanion[3] = q->w;
 
 	mpu_get_temperature(&t);
 	temp=(float)t/65536L;
